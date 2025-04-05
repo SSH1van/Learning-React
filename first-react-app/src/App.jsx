@@ -1,53 +1,30 @@
-import Header from "./components/Header.jsx";
-import Button from "./components/Button/Button.jsx";
+import Header from "./components/Header/Header.jsx";
 import TeachingSection from "./components/TeachingSection.jsx";
+import DifferencesSection from "./components/DifferencesSection.jsx";
+import IntroSection from "./components/IntroSection.jsx";
+import TabsSection from "./components/TabsSection.jsx";
+import FeedbackSection from "./components/FeedbackSection.jsx";
 import { useState } from "react";
-import { differences } from "./data.js";
 
 export default function App() {
-  const [contentType, setContentType] = useState(null);
-
-  function handleClick(type) {
-    setContentType(type);
-  }
+  const [tab, setTab] = useState("feedback");
 
   return (
-    <div>
+    <>
       <Header />
       <main>
-        <TeachingSection />
-        <section>
-          <h3>Чем мы отличаемся от других?</h3>
+        <IntroSection />
+        <TabsSection active={tab} onChange={setTab} />
 
-          <Button
-            isActive={contentType === "way"}
-            onClick={() => {
-              handleClick("way");
-            }}
-          >
-            Подход
-          </Button>
-          <Button
-            isActive={contentType === "easy"}
-            onClick={() => {
-              handleClick("easy");
-            }}
-          >
-            Доступность
-          </Button>
-          <Button
-            isActive={contentType === "program"}
-            onClick={() => {
-              handleClick("program");
-            }}
-          >
-            Концентрация
-          </Button>
+        {tab === "main" && (
+          <>
+            <TeachingSection />
+            <DifferencesSection />
+          </>
+        )}
 
-          {!contentType && <p>Нажмите на кнопку</p>}
-          {contentType && <p>{differences[contentType]}</p>}
-        </section>
+        {tab === "feedback" && <FeedbackSection />}
       </main>
-    </div>
+    </>
   );
 }
