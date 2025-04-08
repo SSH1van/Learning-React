@@ -2,12 +2,25 @@ import { useState } from "react";
 import Button from "./Button/Button";
 
 export default function FeedbackSection() {
-  const [name, setName] = useState("");
-  const [hasError, setHasError] = useState(false);
-  const [reason, setReason] = useState("help");
+  const [form, setForm] = useState({
+    name: "",
+    hasError: false,
+    reason: "help",
+  });
+
+  function handleNameChange(event) {
+    setForm((prev) => ({
+      ...prev,
+      name: event.target.value,
+      hasError: event.target.value.length === 0,
+    }));
+  }
 
   function toggleError() {
-    setHasError((prev) => !prev);
+    setForm((prev) => ({
+      ...prev,
+      hasError: !prev.hasError,
+    }));
   }
 
   return (
@@ -22,29 +35,30 @@ export default function FeedbackSection() {
           className="control"
           id="name"
           type="text"
-          value={name}
+          value={form.name}
           style={{
-            border: hasError ? "1px solid red" : null,
+            border: form.hasError ? "1px solid red" : null,
           }}
-          onChange={(event) => {
-            setName(event.target.value);
-            setHasError(event.target.value.length === 0);
-          }}
+          onChange={(event) => handleNameChange(event)}
         />
 
         <label htmlFor="reason">Причина обращения</label>
         <select
           id="reason"
           className="control"
-          value={reason}
-          onChange={(event) => setReason(event.target.value)}
+          value={form.reason}
+          onChange={(event) =>
+            setForm((prev) => ({ ...prev, reason: event.target.value }))
+          }
         >
           <option value="error">Ошибка</option>
           <option value="help">Нужна помощь</option>
           <option value="suggest">Предложение</option>
         </select>
 
-        <Button disabled={hasError} isActive={!hasError}>
+        <pre>{JSON.stringify(form, null, 2)}</pre>
+
+        <Button disabled={form.hasError} isActive={!form.hasError}>
           Отправить
         </Button>
       </form>
