@@ -1,10 +1,45 @@
-import { Select, Space, Flex, Divider, Typography } from "antd";
+import {
+  Select,
+  Space,
+  Flex,
+  Divider,
+  Typography,
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  DatePicker,
+} from "antd";
 import { useState } from "react";
 import { useCrypto } from "../context/crypto-context";
 
 export default function AddAssetForm() {
+  const [form] = Form.useForm();
   const [coin, setCoin] = useState(null);
   const { crypto } = useCrypto();
+
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+  const onOk = (value) => {
+    console.log("onOk: ", value);
+  };
+  function handleAmountChange(value) {
+    form.setFieldsValue({
+      total: (value * coin.price).toFixed(2) + "$",
+    });
+  }
+
+  const validateMessages = {
+    required: "${label} is required!",
+    types: {
+      number: "${label} is not valid number!",
+    },
+    number: {
+      range: "${label} must be between ${min} and ${max}!",
+      min: "${label} cannot be less than 0!",
+    },
+  };
 
   if (!coin) {
     return (
@@ -31,7 +66,16 @@ export default function AddAssetForm() {
     );
   }
   return (
-    <form>
+    <Form
+      form={form}
+      validateMessages={validateMessages}
+      name="basic"
+      labelCol={{ span: 4 }}
+      wrapperCol={{ span: 20 }}
+      style={{ maxWidth: 600 }}
+      initialValues={{ price: +coin.price.toFixed(2) }}
+      onFinish={onFinish}
+    >
       <Flex align="center">
         <img
           src={coin.icon}
@@ -43,6 +87,45 @@ export default function AddAssetForm() {
         </Typography.Title>
       </Flex>
       <Divider />
-    </form>
+
+      <Form.Item
+        label="Amount"
+        name="amount"
+        rules={[
+          {
+            required: true,
+            type: "number",
+            min: 0,
+          },
+        ]}
+      >
+        <InputNumber onChange={handleAmountChange} style={{ width: "100%" }} />
+      </Form.Item>
+
+      <Form.Item label="Price" name="price">
+        <InputNumber disabled style={{ width: "100%" }} />
+      </Form.Item>
+
+      <Form.Item label="Date & time" name="date">
+        <DatePicker
+          showTime
+          onChange={(value, dateString) => {
+            console.log("Selected Time: ", value);
+            console.log("Formatted Selected Time: ", dateString);
+          }}
+          onOk={onOk}
+        />
+      </Form.Item>
+
+      <Form.Item label="Total" name="total">
+        <InputNumber disabled style={{ width: "100%" }} />
+      </Form.Item>
+
+      <Form.Item label={null}>
+        <Button type="primary" htmlType="submit">
+          Add Asset
+        </Button>
+      </Form.Item>
+    </Form>
   );
 }
