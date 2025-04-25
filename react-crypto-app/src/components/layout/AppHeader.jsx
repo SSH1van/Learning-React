@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useCrypto } from "../../context/crypto-context";
 import CoinInfoModal from "../CoinInfoModal";
 import AddAssetForm from "../AddAssetForm";
+import CoinSelect from "../CoinSelect";
 
 const headerStyle = {
   width: "100%",
@@ -38,28 +39,15 @@ export default function AppHeader() {
 
   return (
     <Layout.Header style={headerStyle}>
-      <Select
+      <CoinSelect
+        crypto={crypto}
         style={{ width: 250 }}
         open={select}
         onSelect={handleSelect}
         onClick={() => setSelect((prev) => !prev)}
         value={select ? "presss / to close" : "presss / to open"}
-        options={crypto.map((coin) => ({
-          label: coin.name,
-          value: coin.id,
-          icon: coin.icon,
-        }))}
-        optionRender={(options) => (
-          <Space>
-            <img
-              src={options.data.icon}
-              alt={options.data.label}
-              style={{ width: 25 }}
-            />
-            {options.data.label}
-          </Space>
-        )}
       />
+      
       <Button type="primary" onClick={() => setDrawer(true)}>
         Add Asset
       </Button>
@@ -74,7 +62,7 @@ export default function AppHeader() {
         open={drawer}
         destroyOnClose
       >
-        <AddAssetForm onClose={() => setDrawer(false)}/>
+        <AddAssetForm onClose={() => setDrawer(false)} />
       </Drawer>
     </Layout.Header>
   );

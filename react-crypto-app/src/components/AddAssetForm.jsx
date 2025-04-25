@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import { useCrypto } from "../context/crypto-context";
 import CoinInfo from "./CoinInfo";
+import CoinSelect from "./CoinSelect";
 
 export default function AddAssetForm({ onClose }) {
   const [form] = Form.useForm();
@@ -55,25 +56,11 @@ export default function AddAssetForm({ onClose }) {
 
   if (!coin) {
     return (
-      <Select
+      <CoinSelect
+        crypto={crypto}
         style={{ width: "100%" }}
         onSelect={(v) => setCoin(crypto.find((c) => c.id === v))}
         placeholder="Select coin"
-        options={crypto.map((coin) => ({
-          label: coin.name,
-          value: coin.id,
-          icon: coin.icon,
-        }))}
-        optionRender={(options) => (
-          <Space>
-            <img
-              src={options.data.icon}
-              alt={options.data.label}
-              style={{ width: 25 }}
-            />
-            {options.data.label}
-          </Space>
-        )}
       />
     );
   }
