@@ -2,21 +2,11 @@ import { Select, Space } from "antd";
 
 export default function CoinSelect({
   crypto,
-  style,
-  open,
-  onSelect,
-  onClick,
-  value,
-  placeholder,
+  ...props
 }) {
   return (
     <Select
-      style={style}
-      open={open}
-      onSelect={onSelect}
-      onClick={onClick}
-      value={value}
-      placeholder={placeholder}
+      {...props}
       options={crypto.map((coin) => ({
         label: coin.name,
         value: coin.id,
