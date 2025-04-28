@@ -1,11 +1,4 @@
-import {
-  Divider,
-  Button,
-  Form,
-  InputNumber,
-  DatePicker,
-  Result,
-} from "antd";
+import { Divider, Button, Form, InputNumber, DatePicker, Result } from "antd";
 import { useState } from "react";
 import { useCrypto } from "../context/crypto-context";
 import CoinInfo from "./CoinInfo";
