@@ -1,4 +1,4 @@
-import { Layout, Select, Space, Button, Modal, Drawer } from "antd";
+import { Layout, Button, Modal, Drawer } from "antd";
 import React, { useEffect, useState } from "react";
 import { useCrypto } from "../../context/crypto-context";
 import CoinInfoModal from "../CoinInfoModal";
