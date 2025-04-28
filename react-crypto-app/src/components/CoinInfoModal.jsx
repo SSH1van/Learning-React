@@ -4,7 +4,7 @@ import CoinInfo from "./CoinInfo";
 export default function CoinInfoModal({ coin }) {
   return (
     <>
-      <CoinInfo coin={coin}></CoinInfo>
+      <CoinInfo coin={coin} withSymbol></CoinInfo>
       <Divider />
       <Typography.Paragraph>
         <Typography.Text strong>1 hour: </Typography.Text>
