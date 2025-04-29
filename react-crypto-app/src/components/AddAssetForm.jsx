@@ -1,5 +1,5 @@
 import { Divider, Button, Form, InputNumber, DatePicker, Result } from "antd";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCrypto } from "../context/crypto-context";
 import CoinInfo from "./CoinInfo";
 import CoinSelect from "./CoinSelect";
@@ -9,7 +9,8 @@ export default function AddAssetForm({ onClose }) {
   const [coin, setCoin] = useState(null);
   const { crypto } = useCrypto();
   const [submitted, setSubmitted] = useState(false);
-  
+  const assetRef = useRef();
+
   useEffect(() => {
     if (coin?.price) {
       form.setFieldsValue({ price: Number(coin.price.toFixed(2)) });
@@ -19,7 +20,14 @@ export default function AddAssetForm({ onClose }) {
   function onOk(values) {
     console.log("onOk:", values);
   }
-  function onFinish() {
+  function onFinish(values) {
+    const newAsset = {
+      id: coin.id,
+      amount: values.amount,
+      price: values.price,
+      date: values.date?.$d ?? new Date(),
+    };
+    assetRef.current = newAsset;
     setSubmitted(true);
   }
   function handleAmountChange(value) {
@@ -67,9 +75,9 @@ export default function AddAssetForm({ onClose }) {
       <Result
         status="success"
         title="New Asset Successfully Added!"
-        subTitle={`Added ${form.getFieldValue("amount")} of ${
+        subTitle={`Added ${assetRef.current.amount} of ${
           coin.name
-        } by price ${form.getFieldValue("price")}`}
+        } by price ${assetRef.current.price}`}
         extra={[
           <Button type="primary" key="close" onClick={onClose}>
             Close
