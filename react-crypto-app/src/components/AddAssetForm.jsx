@@ -67,7 +67,9 @@ export default function AddAssetForm({ onClose }) {
       <Result
         status="success"
         title="New Asset Successfully Added!"
-        subTitle={`Added ${42} of ${coin.name} by price ${24}`}
+        subTitle={`Added ${form.getFieldValue("amount")} of ${
+          coin.name
+        } by price ${form.getFieldValue("price")}`}
         extra={[
           <Button type="primary" key="close" onClick={onClose}>
             Close
