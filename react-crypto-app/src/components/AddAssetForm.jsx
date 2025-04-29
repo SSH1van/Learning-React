@@ -7,7 +7,7 @@ import CoinSelect from "./CoinSelect";
 export default function AddAssetForm({ onClose }) {
   const [form] = Form.useForm();
   const [coin, setCoin] = useState(null);
-  const { crypto } = useCrypto();
+  const { crypto, addAsset } = useCrypto();
   const [submitted, setSubmitted] = useState(false);
   const assetRef = useRef();
 
@@ -29,6 +29,7 @@ export default function AddAssetForm({ onClose }) {
     };
     assetRef.current = newAsset;
     setSubmitted(true);
+    addAsset(newAsset);
   }
   function handleAmountChange(value) {
     const price = form.getFieldValue("price");
@@ -75,9 +76,7 @@ export default function AddAssetForm({ onClose }) {
       <Result
         status="success"
         title="New Asset Successfully Added!"
-        subTitle={`Added ${assetRef.current.amount} of ${
-          coin.name
-        } by price ${assetRef.current.price}`}
+        subTitle={`Added ${assetRef.current.amount} of ${coin.name} by price ${assetRef.current.price}`}
         extra={[
           <Button type="primary" key="close" onClick={onClose}>
             Close
