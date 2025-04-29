@@ -1,5 +1,5 @@
 import { Divider, Button, Form, InputNumber, DatePicker, Result } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCrypto } from "../context/crypto-context";
 import CoinInfo from "./CoinInfo";
 import CoinSelect from "./CoinSelect";
@@ -9,8 +9,14 @@ export default function AddAssetForm({ onClose }) {
   const [coin, setCoin] = useState(null);
   const { crypto } = useCrypto();
   const [submitted, setSubmitted] = useState(false);
+  
+  useEffect(() => {
+    if (coin?.price) {
+      form.setFieldsValue({ price: Number(coin.price.toFixed(2)) });
+    }
+  }, [coin?.price, form]);
 
-  function onOk() {
+  function onOk(values) {
     console.log("onOk:", values);
   }
   function onFinish() {
@@ -32,6 +38,7 @@ export default function AddAssetForm({ onClose }) {
   function handleBuyAgain() {
     setCoin(null);
     setSubmitted(false);
+    form.resetFields();
   }
 
   const validateMessages = {
@@ -80,7 +87,6 @@ export default function AddAssetForm({ onClose }) {
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 20 }}
       style={{ maxWidth: 600 }}
-      initialValues={{ price: +coin.price.toFixed(2) }}
       onFinish={onFinish}
     >
       <CoinInfo coin={coin}></CoinInfo>
