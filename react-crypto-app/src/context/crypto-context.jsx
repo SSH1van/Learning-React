@@ -20,6 +20,7 @@ export function CryptoContextProvider({ children }) {
         grow: asset.price < coin.price,
         growPrecent: precentDifference(asset.price, coin.price),
         totalAmount: asset.amount * coin.price,
+        name: coin.name,
         totalProfit: (
           asset.amount * coin.price -
           asset.amount * asset.price

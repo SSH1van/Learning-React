@@ -1,6 +1,5 @@
 import { Layout, Card, Statistic, List, Typography, Tag } from "antd";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
-import { capitalize } from "../../utils.js";
 import { useCrypto } from "../../context/crypto-context.jsx";
 
 const siderStyle = {
@@ -15,7 +14,7 @@ export default function AppSlider() {
       {assets.map((asset) => (
         <Card key={asset.id} style={{ marginBottom: "1rem" }}>
           <Statistic
-            title={capitalize(asset.id)}
+            title={asset.name}
             value={asset.totalAmount}
             precision={2}
             valueStyle={{ color: asset.grow ? "#3f8600" : "#cf1322" }}
