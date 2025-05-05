@@ -19,17 +19,17 @@ export default function AppSlider({ collapsed }: { collapsed: boolean }) {
           {
             key: "1",
             icon: <UserOutlined />,
-            label: "nav 1",
+            label: "Главная",
           },
           {
             key: "2",
             icon: <VideoCameraOutlined />,
-            label: "nav 2",
+            label: "Заказы",
           },
           {
             key: "3",
             icon: <UploadOutlined />,
-            label: "nav 3",
+            label: "Доставка",
           },
         ]}
       />
