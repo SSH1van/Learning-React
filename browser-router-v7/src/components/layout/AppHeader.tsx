@@ -1,6 +1,7 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout, Button, theme } from "antd";
 import { Dispatch, SetStateAction } from "react";
+import DropdownMenu from "../DropdownMenu";
 
 const { Header } = Layout;
 
@@ -15,7 +16,15 @@ export default function AppHeader({ collapsed, setCollapsed }: AppHeaderProps) {
   } = theme.useToken();
 
   return (
-    <Header style={{ padding: 0, background: colorBgContainer }}>
+    <Header
+      style={{
+        padding: "0 1rem 0 0",
+        background: colorBgContainer,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       <Button
         type="text"
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -26,6 +35,7 @@ export default function AppHeader({ collapsed, setCollapsed }: AppHeaderProps) {
           height: 64,
         }}
       />
+      <DropdownMenu />
     </Header>
   );
 }
