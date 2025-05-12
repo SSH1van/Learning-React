@@ -46,7 +46,7 @@ export default function AppSlider({ collapsed }: { collapsed: boolean }) {
           {
             key: "2",
             icon: <VideoCameraOutlined />,
-            label: <Link to={"/orders"}>Заказы</Link>,
+            label: <Link to={"/orders?sort=desc"}>Заказы</Link>,
           },
           {
             key: "3",

@@ -11,7 +11,7 @@ export default function DropdownMenu() {
   const items: MenuProps["items"] = [
     {
       key: "1",
-      label: <Link to={"/my-profile"}>Мой профиль</Link>,
+      label: <Link to={"/my-profile/46cd079f-1c50-415c-88ab-36c1e73c3be3"}>Мой профиль</Link>,
     },
     {
       key: "2",

@@ -10,7 +10,7 @@ import NoMatchPage from "../pages/no-match-page";
 export default function AppRoutes() {
   const navigationRoutes = [
     { path: "/", element: <MainPage /> },
-    { path: "/my-profile", element: <MyProfile /> },
+    { path: "/my-profile/:userId", element: <MyProfile /> },
     { path: "/settings", element: <Settings /> },
     { path: "/orders", element: <Orders /> },
     { path: "/delivery", element: <Delivery /> },
