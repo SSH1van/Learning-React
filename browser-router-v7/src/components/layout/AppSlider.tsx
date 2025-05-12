@@ -21,7 +21,7 @@ export default function AppSlider({ collapsed }: { collapsed: boolean }) {
       case "/delivery":
         return "3";
       default:
-        return "1";
+        return "";
     }
   };
 
