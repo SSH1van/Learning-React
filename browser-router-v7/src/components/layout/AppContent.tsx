@@ -1,4 +1,5 @@
 import { Layout, theme } from "antd";
+import AppRoutes from "../../routes/routes";
 
 const { Content } = Layout;
 
@@ -17,7 +18,7 @@ export default function AppContent() {
         borderRadius: borderRadiusLG,
       }}
     >
-      Content
+      <AppRoutes />
     </Content>
   );
 }
