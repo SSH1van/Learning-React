@@ -6,12 +6,20 @@ import Orders from "../pages/orders";
 import Delivery from "../pages/delivery";
 import Login from "../pages/login";
 import NoMatchPage from "../pages/no-match-page";
+import PrivateRoute from "./private.route";
 
 export default function AppRoutes() {
   const navigationRoutes = [
     { path: "/", element: <MainPage /> },
     { path: "/my-profile/:userId", element: <MyProfile /> },
-    { path: "/settings", element: <Settings /> },
+    {
+      path: "/settings",
+      element: (
+        <PrivateRoute>
+          <Settings />
+        </PrivateRoute>
+      ),
+    },
     { path: "/orders", element: <Orders /> },
     { path: "/delivery", element: <Delivery /> },
     { path: "/login", element: <Login /> },
