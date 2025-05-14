@@ -4,7 +4,7 @@ import "./App.css";
 import { type DecrementAction, type IncrementAction, store } from "./store";
 import { useEffect, useReducer } from "react";
 
-function App() {
+export default function App() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   useEffect(() => {
     const unsubscribe = store.subscribe(() => {
@@ -47,5 +47,3 @@ function App() {
     </>
   );
 }
-
-export default App;
